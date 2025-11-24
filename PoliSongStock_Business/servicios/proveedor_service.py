@@ -1,24 +1,22 @@
-from entidades.proveedor import Proveedor
-from excepciones.errores_negocio import ProveedorNoAutenticadoError
+from typing import Dict, Optional
+from entidades.proveedor import Proveedor  # asumo que existe esta clase con id, nombre, correo
 
 class ProveedorService:
-    def __init__(self):   # ← CORREGIDO
-        self.proveedores = {}  # id -> Proveedor
-        self.authenticated = set()
+    def _init_(self, pedido_service=None):
+        self.proveedores: Dict[int, Proveedor] = {}
+        self.pedido_service = pedido_service  # optional dependency
 
-    def registrar_proveedor(self, id:int, nombre:str, correo:str):
+    def registrar_proveedor(self, id: int, nombre: str, correo: str) -> Proveedor:
         if id in self.proveedores:
-            raise ValueError("Proveedor ya existe")
-        p = Proveedor(id, nombre, correo)
+            raise ValueError("Proveedor ya existe con ese id")
+        p = Proveedor(id=id, nombre=nombre, correo=correo)
         self.proveedores[id] = p
         return p
 
-    def autenticar(self, proveedor_id:int):
-        if proveedor_id not in self.proveedores:
-            raise ProveedorNoAutenticadoError("Proveedor no registrado")
-        self.authenticated.add(proveedor_id)
-        return True
+    def obtener_proveedor(self, id: int) -> Optional[Proveedor]:
+        return self.proveedores.get(id)
 
-    def esta_autenticado(self, proveedor_id:int):
-        return proveedor_id in self.authenticated
-
+    def consultar_pedidos(self, proveedor_id: int):
+        if self.pedido_service is None:
+            raise ValueError("PedidoService no inyectado en ProveedorService")
+        return self.pedido_service.obtener_pedidos_proveedor(proveedor_id)
