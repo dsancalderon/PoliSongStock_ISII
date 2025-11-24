@@ -1,22 +1,19 @@
-from entidades.vinilo import Vinilo
+from typing import Dict, Optional
+
+from entidades.vinilo import Vinilo  # asumo que existe esta clase y tiene atributos id, precio, proveedor_id
 
 class ViniloService:
     def __init__(self):
-        self.vinilos = {}  # id -> Vinilo
+        self.vinilos: Dict[int, Vinilo] = {}
 
-    def registrar_vinilo(self, id:int, nombre:str, artista:str, anio:int, precio:float, stock:int):
-        if id in self.vinilos:
-            raise ValueError("Vinilo ya existe")
-        v = Vinilo(id, nombre, artista, anio, precio, stock)
-        self.vinilos[id] = v
-        return v
+    def registrar_vinilo(self, id: int, titulo: str, artista: str, precio: float, proveedor_id: int, stock: int = 1) -> Vinilo:
+        vinilo = Vinilo(id=id, titulo=titulo, artista=artista, precio=precio, proveedor_id=proveedor_id, stock=stock)
+        self.vinilos[id] = vinilo
+        return vinilo
 
-    def asociar_cancion(self, vinilo_id:int, cancion):
-        if vinilo_id not in self.vinilos:
-            raise ValueError("Vinilo no encontrado")
-        v = self.vinilos[vinilo_id]
-        v.asociar_cancion(cancion)
-        return v
+    def obtener_vinilo(self, id: int) -> Optional[Vinilo]:
+        return self.vinilos.get(id)
 
-    def consultar_disponibles(self):
-        return [v for v in self.vinilos.values() if v.consultar_disponibilidad()]
+    def buscar_vinilos(self, termino: str):
+        termino_lower = termino.lower()
+        return [v for v in self.vinilos.values() if termino_lower in getattr(v, "titulo", "").lower() or termino_lower in getattr(v, "artista", "").lower()]
