@@ -1,7 +1,7 @@
 from entidades.vinilo import Vinilo
 
 class ViniloService:
-    def _init_(self):
+    def __init__(self):
         self.vinilos = {}  # id -> Vinilo
 
     def registrar_vinilo(self, id:int, nombre:str, artista:str, anio:int, precio:float, stock:int):

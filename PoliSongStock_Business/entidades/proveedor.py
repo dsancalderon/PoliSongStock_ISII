@@ -1,7 +1,7 @@
 from typing import List
 
 class Proveedor:
-    def _init_(self, id: int, nombre: str, correo: str):
+    def __init__(self, id: int, nombre: str, correo: str):
         self.id = id
         self.nombre = nombre
         self.correo = correo

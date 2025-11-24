@@ -1,5 +1,5 @@
 class Recopilacion:
-    def _init_(self, id: int, nombre: str, usuario_id: int):
+    def __init__(self, id: int, nombre: str, usuario_id: int):
         self.id = id
         self.nombre = nombre
         self.usuario_id = usuario_id

@@ -9,7 +9,7 @@ class EstadoPedido(str, Enum):
     RECIBIDO = "recibido"
 
 class Pedido:
-    def _init_(self, id: int, usuario_id: int, items: list, medio_pago: str, observacion: str = ""):
+    def __init__(self, id: int, usuario_id: int, items: list, medio_pago: str, observacion: str = ""):
         self.id = id
         self.usuario_id = usuario_id
         self.items = items   # list of dicts: {"tipo":"vinilo"/"cancion", "id": int, "cantidad": int}

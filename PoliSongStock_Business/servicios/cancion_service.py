@@ -1,7 +1,7 @@
 from entidades.cancion import Cancion
 
 class CancionService:
-    def _init_(self):
+    def __init__(self):
         self.canciones = {}  # id -> Cancion
 
     def registrar_cancion(self, id:int, nombre:str, artista:str, precio:float, duracion:float, tamano_kb:int, calidad:str):

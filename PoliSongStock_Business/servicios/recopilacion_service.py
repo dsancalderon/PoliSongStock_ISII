@@ -1,7 +1,7 @@
 from excepciones.errores_negocio import RecopilacionNoPublicaError
 
 class RecopilacionService:
-    def _init_(self, usuario_service):
+    def __init__(self, usuario_service):
         self.usuario_service = usuario_service
 
     def clonar_recopilacion(self, usuario_id:int, origen_usuario_id:int, recopilacion_id:int, nuevo_id:int):

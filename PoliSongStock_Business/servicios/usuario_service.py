@@ -3,7 +3,7 @@ from entidades.recopilacion import Recopilacion
 from excepciones.errores_negocio import UsuarioNoEncontradoError
 
 class UsuarioService:
-    def _init_(self):
+    def __init__(self):
         self.usuarios = {}  # id -> Usuario
 
     def registrar_usuario(self, id: int, nombre: str, correo: str):

@@ -2,7 +2,7 @@ from entidades.proveedor import Proveedor
 from excepciones.errores_negocio import ProveedorNoAutenticadoError
 
 class ProveedorService:
-    def _init_(self):
+    def __init__(self):   # ← CORREGIDO
         self.proveedores = {}  # id -> Proveedor
         self.authenticated = set()
 
@@ -21,3 +21,4 @@ class ProveedorService:
 
     def esta_autenticado(self, proveedor_id:int):
         return proveedor_id in self.authenticated
+
