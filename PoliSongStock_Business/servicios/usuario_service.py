@@ -23,3 +23,11 @@ class UsuarioService:
         r = Recopilacion(recopilacion_id, nombre, usuario_id)
         usuario.crear_recopilacion(r)
         return r
+    
+    def agregar_al_carrito(self, usuario_id, vinilo):
+    usuario = self.buscar_usuario_por_id(usuario_id)
+    if usuario is None:
+        raise ValueError("Usuario no encontrado")
+
+    usuario.carrito.append(vinilo)
+    return True
