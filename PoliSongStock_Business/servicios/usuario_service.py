@@ -1,33 +1,38 @@
+from typing import Dict, Optional
 from entidades.usuario import Usuario
-from entidades.recopilacion import Recopilacion
-from excepciones.errores_negocio import UsuarioNoEncontradoError
 
 class UsuarioService:
     def __init__(self):
-        self.usuarios = {}  # id -> Usuario
+        # almacena usuarios por id
+        self.usuarios: Dict[int, Usuario] = {}
 
-    def registrar_usuario(self, id: int, nombre: str, correo: str):
+    def registrar_usuario(self, id: int, nombre: str, correo: str, password: str) -> Usuario:
         if id in self.usuarios:
-            raise ValueError("Usuario ya existe")
-        u = Usuario(id, nombre, correo)
-        self.usuarios[id] = u
-        return u
+            raise ValueError(f"Usuario con id {id} ya existe")
+        usuario = Usuario(id, nombre, correo, password)
+        self.usuarios[id] = usuario
+        return usuario
 
-    def obtener_usuario(self, id: int):
-        if id not in self.usuarios:
-            raise UsuarioNoEncontradoError(f"Usuario {id} no encontrado")
-        return self.usuarios[id]
+    def obtener_usuario(self, id: int) -> Optional[Usuario]:
+        return self.usuarios.get(id)
 
-    def crear_recopilacion(self, usuario_id: int, recopilacion_id: int, nombre: str):
+    def autenticar(self, correo: str, password: str) -> Optional[Usuario]:
+        # sencillo: buscar por correo
+        for u in self.usuarios.values():
+            if u.correo == correo and u.password == password:
+                return u
+        return None
+
+    def agregar_al_carrito(self, usuario_id: int, item) -> bool:
         usuario = self.obtener_usuario(usuario_id)
-        r = Recopilacion(recopilacion_id, nombre, usuario_id)
-        usuario.crear_recopilacion(r)
-        return r
-    
-    def agregar_al_carrito(self, usuario_id, vinilo):
-    usuario = self.buscar_usuario_por_id(usuario_id)
-    if usuario is None:
-        raise ValueError("Usuario no encontrado")
+        if usuario is None:
+            raise ValueError("Usuario no encontrado")
+        usuario.carrito.append(item)
+        return True
 
-    usuario.carrito.append(vinilo)
-    return True
+    def vaciar_carrito(self, usuario_id: int) -> None:
+        usuario = self.obtener_usuario(usuario_id)
+        if usuario is None:
+            raise ValueError("Usuario no encontrado")
+        usuario.carrito.clear()
+
