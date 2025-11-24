@@ -4,59 +4,55 @@ Contiene un flujo simulado: registrar proveedor, registrar vinilo y canción,
 registrar usuario, crear pedido y confirmar pedido por proveedor.
 """
 from servicios.usuario_service import UsuarioService
-from servicios.proveedor_service import ProveedorService
-from servicios.cancion_service import CancionService
 from servicios.vinilo_service import ViniloService
 from servicios.pedido_service import PedidoService
-from utilidades.notificador import enviar_correo_simulado
+from servicios.proveedor_service import ProveedorService
 
 def demo():
-    # Inicializar servicios
     usuario_svc = UsuarioService()
-    proveedor_svc = ProveedorService()
-    cancion_svc = CancionService()
     vinilo_svc = ViniloService()
-    pedido_svc = PedidoService(vinilo_svc, cancion_svc, proveedor_svc)
+    pedido_svc = PedidoService(usuario_svc, vinilo_svc)
+    proveedor_svc = ProveedorService(pedido_service=pedido_svc)
 
-    # Registrar proveedor y autenticar
-    prov = proveedor_svc.registrar_proveedor(1, "Vinilos S.A.", "ventas@vinilossa.com")
-    proveedor_svc.autenticar(prov.id)
+    # crear proveedor
+    prov = proveedor_svc.registrar_proveedor(1, "Vinilos S.A.", "ventas@vinilos.com")
+    print("Proveedor creado:", prov.nombre)
 
-    # Registrar vinilo
-    v = vinilo_svc.registrar_vinilo(101, "Greatest Hits", "La Banda", 1985, 45.0, 3)
+    # registrar vinilos
+    v1 = vinilo_svc.registrar_vinilo(id=1, titulo="Album A", artista="Artista X", precio=25.0, proveedor_id=prov.id, stock=10)
+    v2 = vinilo_svc.registrar_vinilo(id=2, titulo="Album B", artista="Artista Y", precio=30.0, proveedor_id=prov.id, stock=5)
+    print("Vinilos registrados:", v1.titulo, v2.titulo)
 
-    # Registrar canciones y asociarlas
-    c1 = cancion_svc.registrar_cancion(201, "Cancion A", "La Banda", 1.99, 3.5, 3500, "320kbps")
-    c2 = cancion_svc.registrar_cancion(202, "Cancion B", "La Banda", 1.49, 4.0, 4200, "320kbps")
-    vinilo_svc.asociar_cancion(v.id, c1)
-    vinilo_svc.asociar_cancion(v.id, c2)
+    # registrar usuario
+    u = usuario_svc.registrar_usuario(id=1, nombre="Cliente 1", correo="c1@example.com", password="1234")
+    print("Usuario creado:", u.nombre)
 
-    # Registrar usuario y crear recopilacion
-    u = usuario_svc.registrar_usuario(11, "Juan", "juan@example.com")
-    rec = usuario_svc.crear_recopilacion(11, 301, "Mi mejor playlist")
-    rec.agregar_cancion(c1)
-    rec.hacer_publica()
+    # autenticar
+    user = usuario_svc.autenticar("c1@example.com", "1234")
+    print("Autenticado:", user.nombre if user else "no")
 
-    # Crear pedido (vinilo x1 + canción individual)
-    items = [
-        {"tipo":"vinilo", "id": v.id, "cantidad": 1},
-        {"tipo":"cancion", "id": c2.id, "cantidad": 1}
-    ]
-    pedido = pedido_svc.crear_pedido(401, u.id, items, medio_pago="tarjeta", observacion="Por favor enviar rápido")
-    print("Pedido creado:", pedido.id, pedido.estado)
+    # buscar vinilos
+    encontrados = vinilo_svc.buscar_vinilos("Album")
+    print("Encontrados:", [v.titulo for v in encontrados])
 
-    # Calcular total
-    total = pedido_svc.calcular_total(pedido.id)
-    print(f"Total del pedido {pedido.id}: ${total:.2f}")
+    # agregar al carrito
+    usuario_svc.agregar_al_carrito(user.id, v1)
+    usuario_svc.agregar_al_carrito(user.id, v2)
+    print("Carrito:", [getattr(x, 'titulo', str(x)) for x in user.carrito])
 
-    # Confirmar pedido por proveedor autenticado
-    pedido_confirmado = pedido_svc.confirmar_pedido(pedido.id, prov.id)
-    print("Pedido confirmado. Nuevo estado:", pedido_confirmado.estado)
-    print("Stock restante del vinilo:", vinilo_svc.vinilos[v.id].stock)
+    # crear pedido desde carrito
+    pedido = pedido_svc.crear_pedido_desde_carrito(usuario_id=user.id, medio_pago="tarjeta", observacion="Entregar en puerta")
+    print("Pedido creado id:", pedido.id, "Items:", pedido.items, "Proveedor asociado:", pedido.proveedor_id)
 
-    # Simular notificación
-    enviar_correo_simulado(u.correo, f"Su pedido {pedido.id} fue confirmado", "Gracias por su compra.")
+    # historial usuario
+    historial = pedido_svc.obtener_historial_usuario(user.id)
+    print("Historial (IDs):", [p.id for p in historial])
 
-if __name__ == '__main__':
+    # proveedor consulta pedidos
+    pedidos_prov = proveedor_svc.consultar_pedidos(prov.id)
+    print("Pedidos para proveedor:", [p.id for p in pedidos_prov])
+
+if __name__ == "__main__":
     demo()
+
 
