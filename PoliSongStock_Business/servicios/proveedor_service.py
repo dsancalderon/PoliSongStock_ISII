@@ -1,5 +1,5 @@
 from typing import Dict, Optional
-from entidades.proveedor import Proveedor  # asumo que existe esta clase con id, nombre, correo
+from PoliSongStock_Business.entidades.proveedor import Proveedor
 
 class ProveedorService:
     def __init__(self, pedido_service=None):
