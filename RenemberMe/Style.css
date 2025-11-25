@@ -1,0 +1,13 @@
+:root{
+      --accent: #ff6b6b;
+      --muted:#6c757d;
+    }
+body{background:#f4f6f9;}
+    .sidebar{min-height:100vh; background:linear-gradient(180deg,#ffffff, #fbfbff); border-right:1px solid #e8eaf0}
+    .card-reminder{border-left:6px solid transparent}
+    .card-reminder.low{border-left-color:#28a745}
+    .card-reminder.medium{border-left-color:#ffc107}
+    .card-reminder.high{border-left-color:#dc3545}
+    .sticky-top-10{position:sticky; top:10px}
+    .small-muted{font-size:.88rem;color:var(--muted)
+    }
