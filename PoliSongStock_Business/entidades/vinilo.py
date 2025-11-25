@@ -1,5 +1,6 @@
 from typing import List
 
+
 class Vinilo:
     def __init__(self, id: int, nombre: str, artista: str, anio: int, precio: float, stock: int):
         if precio <= 0:
@@ -26,3 +27,7 @@ class Vinilo:
         if self.stock < cantidad:
             raise ValueError("ViniloSinStockError")
         self.stock -= cantidad
+
+
+
+
