@@ -15,19 +15,21 @@ class Vinilo:
         self.precio = precio
         self.stock = stock
 
+
     def asociar_cancion(self, cancion):
         if any(c.id == cancion.id for c in self.canciones):
             raise ValueError("Canción ya asociada al vinilo")
         self.canciones.append(cancion)
 
+
     def consultar_disponibilidad(self):
         return self.stock > 0
+
 
     def reducir_stock(self, cantidad=1):
         if self.stock < cantidad:
             raise ValueError("ViniloSinStockError")
         self.stock -= cantidad
-
 
 
 
