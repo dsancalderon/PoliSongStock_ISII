@@ -1,6 +1,6 @@
 import pytest
-from cancion import Cancion   # <-- cambia 'tu_archivo' por el nombre real del archivo .py donde está la clase
 
+from cancion import Cancion   
 def test_mostrar_detalle():
     # Arrange: crear objeto de prueba
     cancion = Cancion(
