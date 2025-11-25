@@ -2,7 +2,7 @@ from typing import Dict, Optional
 from entidades.proveedor import Proveedor  # asumo que existe esta clase con id, nombre, correo
 
 class ProveedorService:
-    def _init_(self, pedido_service=None):
+    def __init__(self, pedido_service=None):
         self.proveedores: Dict[int, Proveedor] = {}
         self.pedido_service = pedido_service  # optional dependency
 
