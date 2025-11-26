@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Vinilos - Polisongstock</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .vinilos-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .vinilos-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .vinilos-header h2 {
+            font-size: 2.5em;
+            color: #2d013e;
+            margin-bottom: 10px;
+        }
+
+        .vinilos-header p {
+            font-size: 1.1em;
+            color: #666;
+        }
+
+        .filtros {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filtros select, .filtros input {
+            padding: 10px 15px;
+            border: 2px solid #b26fff;
+            border-radius: 8px;
+            font-size: 1em;
+            background-color: white;
+            color: #2d013e;
+        }
+
+        .filtros select:hover, .filtros input:hover {
+            border-color: #6a00b8;
+        }
+
+        .vinilos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .vinilo-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .vinilo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(106, 0, 184, 0.2);
+        }
+
+        .vinilo-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #6a00b8, #b26fff);
+        }
+
+        .vinilo-content {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .vinilo-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2d013e;
+            margin-bottom: 8px;
+        }
+
+        .vinilo-artista {
+            color: #666;
+            margin-bottom: 5px;
+            font-size: 0.95em;
+        }
+
+        .vinilo-year {
+            color: #999;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+        }
+
+        .vinilo-genero {
+            display: inline-block;
+            background: #f0e6ff;
+            color: #6a00b8;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            margin-bottom: 15px;
+            width: fit-content;
+        }
+
+        .vinilo-description {
+            color: #555;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            flex: 1;
+        }
+
+        .vinilo-canciones {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.85em;
+        }
+
+        .vinilo-canciones strong {
+            color: #2d013e;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .vinilo-cancion {
+            color: #666;
+            padding: 3px 0;
+        }
+
+        .vinilo-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .vinilo-precio {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #6a00b8;
+        }
+
+        .btn-comprar {
+            background: linear-gradient(135deg, #6a00b8, #b26fff);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-comprar:hover {
+            background: linear-gradient(135deg, #4d0085, #9a1fe0);
+            transform: scale(1.05);
+        }
+
+        .no-resultados {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            padding: 25px;
+            background-color: #2d013e;
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <img src="imagenes/logo.png" alt="Logo" class="logo">
+            <h1 class="titulo">Polisongstock</h1>
+        </div>
+        <nav class="navbar">
+            <a href="index.html" class="nav-link">Inicio</a>
+            <a href="catalogo.html" class="nav-link">MP3</a>
+            <a href="vinilos.html" class="nav-link">Vinilos</a>
+            <a href="recopilaciones.html" class="nav-link">Recopilaciones</a>
+            <a href="carrito.html" class="nav-link carrito-link">
+                🛒 Carrito
+                <span id="carrito-badge" style="display: none;">0</span>
+            </a>
+        </nav>
+        <div class="acciones">
+            <a href="login.html" class="btn btn-login">Iniciar sesión</a>
+            <a href="registro.html" class="btn btn-register">Registrarse</a>
+        </div>
+    </header>
+
+    <div class="vinilos-container">
+        <div class="vinilos-header">
+            <h2>💿 Colección de Vinilos</h2>
+            <p>Explora vinilos clásicos y coleccionables de todas las épocas</p>
+        </div>
+
+        <div class="filtros">
+            <input type="text" id="busqueda" placeholder="🔍 Buscar vinilos..." />
+            <select id="filtro-genero">
+                <option value="">Todos los géneros</option>
+            </select>
+            <select id="filtro-artista">
+                <option value="">Todos los artistas</option>
+            </select>
+            <button onclick="limpiarFiltros()" style="background: #ff6b6b; color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer;">Limpiar</button>
+        </div>
+
+        <div class="vinilos-grid" id="vinilos-grid">
+            <!-- Se llenará con JavaScript -->
+        </div>
+    </div>
+
+    <footer>
+        © 2025 Polisongstock — Todos los derechos reservados
+    </footer>
+
+    <script src="database.js"></script>
+    <script src="carrito.js"></script>
+    <script>
+        function formatearPrecio(precio) {
+            return new Intl.NumberFormat('es-CO', {
+                style: 'currency',
+                currency: 'COP',
+                minimumFractionDigits: 0
+            }).format(precio);
+        }
+
+        function mostrarVinilos(vinilos) {
+            const grid = document.getElementById('vinilos-grid');
+            
+            if (vinilos.length === 0) {
+                grid.innerHTML = '<div class="no-resultados">No se encontraron vinilos con esos criterios</div>';
+                return;
+            }
+
+            grid.innerHTML = vinilos.map(vinilo => `
+                <div class="vinilo-card">
+                    <img src="${vinilo.imagen}" alt="${vinilo.titulo}" class="vinilo-img">
+                    <div class="vinilo-content">
+                        <div class="vinilo-title">${vinilo.titulo}</div>
+                        <div class="vinilo-artista">🎤 ${vinilo.artista}</div>
+                        <div class="vinilo-year">📅 ${vinilo.año}</div>
+                        <div class="vinilo-genero">${vinilo.genero}</div>
+                        <div class="vinilo-description">${vinilo.descripcion}</div>
+                        <div class="vinilo-canciones">
+                            <strong>Tracks destacados:</strong>
+                            ${vinilo.canciones.map(c => `<div class="vinilo-cancion">♫ ${c}</div>`).join('')}
+                        </div>
+                        <div class="vinilo-footer">
+                            <div class="vinilo-precio">${formatearPrecio(vinilo.precio)}</div>
+                            <button class="btn-comprar" onclick="agregarAlCarrito(${vinilo.id}, 'vinilo')">🛒 Comprar</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function llenarFiltros() {
+            const generos = Database.getViniloGeneros();
+            const artistas = Database.getViniloArtistas();
+
+            const selectGenero = document.getElementById('filtro-genero');
+            generos.forEach(genero => {
+                const option = document.createElement('option');
+                option.value = genero;
+                option.textContent = genero;
+                selectGenero.appendChild(option);
+            });
+
+            const selectArtista = document.getElementById('filtro-artista');
+            artistas.forEach(artista => {
+                const option = document.createElement('option');
+                option.value = artista;
+                option.textContent = artista;
+                selectArtista.appendChild(option);
+            });
+        }
+
+        function aplicarFiltros() {
+            const busqueda = document.getElementById('busqueda').value;
+            const genero = document.getElementById('filtro-genero').value;
+            const artista = document.getElementById('filtro-artista').value;
+
+            let vinilos = Database.getAllVinilos();
+
+            if (busqueda) {
+                vinilos = vinilos.filter(v => 
+                    v.titulo.toLowerCase().includes(busqueda.toLowerCase()) ||
+                    v.artista.toLowerCase().includes(busqueda.toLowerCase())
+                );
+            }
+
+            if (genero) {
+                vinilos = vinilos.filter(v => v.genero === genero);
+            }
+
+            if (artista) {
+                vinilos = vinilos.filter(v => v.artista === artista);
+            }
+
+            mostrarVinilos(vinilos);
+        }
+
+        function limpiarFiltros() {
+            document.getElementById('busqueda').value = '';
+            document.getElementById('filtro-genero').value = '';
+            document.getElementById('filtro-artista').value = '';
+            mostrarVinilos(Database.getAllVinilos());
+        }
+
+        function comprarVinilo(id) {
+            const vinilo = Database.getViniloById(id);
+            alert(`¡Gracias por tu compra de "${vinilo.titulo}"!\n\nPrecio: ${formatearPrecio(vinilo.precio)}\n\nInicia sesión para completar la compra.`);
+        }
+
+        function agregarAlCarrito(id, tipo) {
+            const vinilo = Database.getViniloById(id);
+            if (vinilo) {
+                Carrito.agregar(vinilo, tipo);
+            }
+        }
+
+        // Configurar eventos
+        document.getElementById('busqueda').addEventListener('input', aplicarFiltros);
+        document.getElementById('filtro-genero').addEventListener('change', aplicarFiltros);
+        document.getElementById('filtro-artista').addEventListener('change', aplicarFiltros);
+
+        // Inicializar cuando se carga la base de datos
+        setTimeout(() => {
+            llenarFiltros();
+            mostrarVinilos(Database.getAllVinilos());
+        }, 500);
+    </script>
+</body>
+</html>
+
+

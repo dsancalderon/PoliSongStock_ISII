@@ -1,0 +1,89 @@
+{
+  "admin@admin.com": {
+    "id": 1,
+    "email": "admin@admin.com",
+    "password": "admin",
+    "nombre": "Administrador",
+    "apellido": "PoliSongStock",
+    "rol": "admin",
+    "estado": "activo",
+    "fechaRegistro": "2025-01-01T00:00:00.000Z",
+    "telefonoContacto": "+57 300 000 0000",
+    "ciudad": "Bogotá",
+    "pais": "Colombia",
+    "permisos": [
+      "ver_productos",
+      "comprar",
+      "ver_carrito",
+      "editar_perfil",
+      "ver_historial_compras",
+      "cambiar_contraseña",
+      "admin_panel"
+    ],
+    "compras": [
+      {
+        "id": "COMP-001",
+        "titulo": "Thriller - Michael Jackson",
+        "artista": "Michael Jackson",
+        "tipo": "vinilo",
+        "precio": 60000,
+        "cantidad": 1,
+        "fecha": "2025-11-23T10:30:00.000Z",
+        "estado": "Entregado",
+        "numeroSeguimiento": "POLL-2025-001"
+      },
+      {
+        "id": "COMP-002",
+        "titulo": "Abbey Road - The Beatles",
+        "artista": "The Beatles",
+        "tipo": "vinilo",
+        "precio": 70000,
+        "cantidad": 1,
+        "fecha": "2025-11-20T14:15:00.000Z",
+        "estado": "Entregado",
+        "numeroSeguimiento": "POLL-2025-002"
+      },
+      {
+        "id": "COMP-003",
+        "titulo": "All Eyez on Me - 2Pac",
+        "artista": "2Pac",
+        "tipo": "vinilo",
+        "precio": 45000,
+        "cantidad": 1,
+        "fecha": "2025-11-18T09:45:00.000Z",
+        "estado": "Entregado",
+        "numeroSeguimiento": "POLL-2025-003"
+      }
+    ],
+    "metodoPagoPrincipal": {
+      "tipo": "tarjeta_credito",
+      "ultimosDigitos": "4242",
+      "vencimiento": "12/25"
+    },
+    "direccionEnvio": {
+      "calle": "Calle Principal 123",
+      "apartamento": "Apto 501",
+      "ciudad": "Bogotá",
+      "departamento": "Cundinamarca",
+      "codigoPostal": "110111",
+      "pais": "Colombia"
+    },
+    "preferencias": {
+      "notificacionesEmail": true,
+      "notificacionesSMS": false,
+      "newsletter": true,
+      "idioma": "es",
+      "tema": "claro"
+    },
+    "sesiones": [
+      {
+        "id": "SES-001",
+        "fechaInicio": "2025-11-25T15:30:00.000Z",
+        "navegador": "Chrome/120.0",
+        "dispositivo": "Windows 10",
+        "ip": "192.168.1.100",
+        "estado": "activa"
+      }
+    ]
+  }
+}

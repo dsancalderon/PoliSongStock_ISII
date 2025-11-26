@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio - Polisongstock</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #f4f0ff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #2d013e;
+        }
+
+        /* Hero principal */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #6a00b8, #b26fff);
+            color: white;
+            border-radius: 20px;
+            margin: 40px auto;
+            max-width: 1200px;
+        }
+
+        .hero img {
+            width: 250px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .hero-text {
+            max-width: 500px;
+        }
+
+        .hero-text h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .hero-text p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .hero-text a {
+            background-color: #fff;
+            color: #6a00b8;
+            padding: 12px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .hero-text a:hover {
+            background-color: #2d013e;
+            color: #fff;
+        }
+
+        /* Galería de imágenes */
+        .galeria {
+            max-width: 1200px;
+            margin: 60px auto;
+            text-align: center;
+        }
+
+        .galeria h2 {
+            margin-bottom: 30px;
+            font-size: 2em;
+            color: #2d013e;
+        }
+
+        .imagenes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            padding: 0 20px;
+        }
+
+        .imagenes-grid img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+
+        .imagenes-grid img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            padding: 25px;
+            background-color: #2d013e;
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <img src="imagenes/logo.png" alt="Logo" class="logo">
+            <h1 class="titulo">Polisongstock</h1>
+        </div>
+
+        <nav class="navbar">
+            <a href="index.html" class="nav-link">Inicio</a>
+            <a href="catalogo.html" class="nav-link">MP3</a>
+            <a href="vinilos.html" class="nav-link">Vinilos</a>
+            <a href="recopilaciones.html" class="nav-link">Recopilaciones</a>
+            <a href="carrito.html" class="nav-link carrito-link">
+                🛒 Carrito
+                <span id="carrito-badge" style="display: none;">0</span>
+            </a>
+        </nav>
+
+        <div class="acciones">
+            <a href="login.html" class="btn btn-login">Iniciar sesión</a>
+            <a href="registro.html" class="btn btn-register">Registrarse</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Bienvenido al mundo musical de <b>Polisongstock</b></h1>
+            <p>Explora nuestra colección digital de música, vinilos y recopilaciones exclusivas. ¡Tu sonido favorito en un solo lugar!</p>
+            <a href="catalogo.html">Explorar ahora</a>
+        </div>
+        <img src="imagenes/fondo.png" alt="Imagen musical destacada">
+    </section>
+
+    <section class="galeria">
+        <h2>🎧 Explora nuestros artistas</h2>
+        <div class="imagenes-grid">
+            <img src="imagenes/2pac.png" alt="2Pac">
+            <img src="imagenes/bad.png" alt="Bad Bunny">
+            <img src="imagenes/sende.png" alt="Sende">
+            <img src="imagenes/yeison.png" alt="Yeison">
+        </div>
+    </section>
+
+    <footer>
+        © 2025 Polisongstock — Todos los derechos reservados
+    </footer>
+
+    <script src="carrito.js"></script>
+</body>
+</html>
+
+

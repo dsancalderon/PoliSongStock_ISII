@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro - Polisongstock</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom right, #6a00b8, #b26fff);
+            color: white;
+            text-align: center;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 25px;
+        }
+
+        .registro-box {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            backdrop-filter: blur(6px);
+        }
+
+        .registro-box h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 85%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #ff0080;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #ff4da6;
+            transform: scale(1.05);
+        }
+
+        .mensaje {
+            display: none;
+            background-color: rgba(0, 255, 120, 0.2);
+            border: 1px solid #00ff7f;
+            border-radius: 10px;
+            padding: 20px;
+            color: #d1ffe4;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🎵 Registro en Polisongstock</h1>
+        <p>Crea tu cuenta y accede al mejor mundo musical</p>
+    </header>
+
+    <div class="registro-box" id="registro-box">
+        <h2>Formulario de Registro</h2>
+        <input type="text" id="nombre" placeholder="Nombre completo"><br>
+        <input type="email" id="correo" placeholder="Correo electrónico"><br>
+        <input type="password" id="clave" placeholder="Contraseña"><br>
+        <button onclick="registrar()">Registrarme</button>
+
+        <div class="mensaje" id="mensaje">
+            ✅ ¡Registro exitoso! Te llegará una notificación al correo que registraste.
+        </div>
+    </div>
+
+    <script>
+        function registrar() {
+            const nombre = document.getElementById("nombre").value;
+            const correo = document.getElementById("correo").value;
+            const clave = document.getElementById("clave").value;
+
+            if (nombre !== "" && correo !== "" && clave !== "") {
+                document.getElementById("mensaje").style.display = "block";
+                setTimeout(() => {
+                    alert("Tu registro ha sido exitoso. Revisa tu correo electrónico 📩");
+                }, 500);
+            } else {
+                alert("Por favor, completa todos los campos.");
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+

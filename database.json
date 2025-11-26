@@ -1,0 +1,227 @@
+
+{
+  "vinilos": [
+    {
+      "id": 1,
+      "titulo": "All Eyez on Me",
+      "artista": "2Pac",
+      "año": 1996,
+      "genero": "Hip Hop",
+      "precio": 45000,
+      "imagen": "imagenes/2pac.png",
+      "descripcion": "Doble álbum debut de estudio de 2Pac, uno de los mejores álbumes de hip hop de todos los tiempos.",
+      "canciones": ["California Love", "All Eyez on Me", "Hit 'Em Up"]
+    },
+    {
+      "id": 2,
+      "titulo": "Un Verano Sin Ti",
+      "artista": "Bad Bunny",
+      "año": 2022,
+      "genero": "Reggaeton",
+      "precio": 55000,
+      "imagen": "imagenes/bad.png",
+      "descripcion": "Álbum conceptual de Bad Bunny que cuenta una historia de amor y desamor en el verano.",
+      "canciones": ["Tití Me Preguntó", "Un x100to", "Ella Baila Sola"]
+    },
+    {
+      "id": 3,
+      "titulo": "Historias de la Calle",
+      "artista": "Sende",
+      "año": 2020,
+      "genero": "Reggaeton/Trap Latino",
+      "precio": 35000,
+      "imagen": "imagenes/sende.png",
+      "descripcion": "Álbum que relata las experiencias de la vida urbana con un flow cautivador.",
+      "canciones": ["La Vida Es Bella", "Calles de Fuego", "Noche Oscura"]
+    },
+    {
+      "id": 4,
+      "titulo": "Nuevo Amanecer",
+      "artista": "Yeison",
+      "año": 2021,
+      "genero": "Reggaeton",
+      "precio": 40000,
+      "imagen": "imagenes/yeison.png",
+      "descripcion": "Debut del artista Yeison con temas melódicos y letras profundas.",
+      "canciones": ["Mi Verdad", "Espera Por Mí", "Sueños"]
+    },
+    {
+      "id": 5,
+      "titulo": "The Dark Side of the Moon",
+      "artista": "Pink Floyd",
+      "año": 1973,
+      "genero": "Rock Progresivo",
+      "precio": 65000,
+      "imagen": "imagenes/pink-floyd.png",
+      "descripcion": "Obra maestra del rock progresivo que explora temas sobre la mortalidad y la locura.",
+      "canciones": ["Time", "Money", "Us and Them", "Brain Damage"]
+    },
+    {
+      "id": 6,
+      "titulo": "Abbey Road",
+      "artista": "The Beatles",
+      "año": 1969,
+      "genero": "Rock",
+      "precio": 70000,
+      "imagen": "imagenes/beatles.png",
+      "descripcion": "Último álbum de estudio grabado por The Beatles con clásicos inmortales.",
+      "canciones": ["Come Together", "Something", "Here Comes the Sun", "The End"]
+    },
+    {
+      "id": 7,
+      "titulo": "Rumours",
+      "artista": "Fleetwood Mac",
+      "año": 1977,
+      "genero": "Rock/Pop",
+      "precio": 50000,
+      "imagen": "imagenes/fleetwood-mac.png",
+      "descripcion": "Álbum icónico que capturó los dramas internos de la banda durante su creación.",
+      "canciones": ["Dreams", "Don't Stop", "Go Your Own Way", "You Make Loving Fun"]
+    },
+    {
+      "id": 8,
+      "titulo": "Thriller",
+      "artista": "Michael Jackson",
+      "año": 1982,
+      "genero": "Pop/Funk",
+      "precio": 60000,
+      "imagen": "imagenes/mj.png",
+      "descripcion": "El álbum más vendido de todos los tiempos con hits internacionales.",
+      "canciones": ["Billie Jean", "Beat It", "Thriller", "Human Nature"]
+    }
+  ],
+  "musica": [
+    {
+      "id": 1,
+      "titulo": "California Love",
+      "artista": "2Pac ft. Dr. Dre",
+      "album": "All Eyez on Me",
+      "año": 1995,
+      "genero": "Hip Hop",
+      "duracion": "4:42",
+      "precio": 1500,
+      "bpm": 88
+    },
+    {
+      "id": 2,
+      "titulo": "Tití Me Preguntó",
+      "artista": "Bad Bunny",
+      "album": "Un Verano Sin Ti",
+      "año": 2022,
+      "genero": "Reggaeton/Trap",
+      "duracion": "3:26",
+      "precio": 1500,
+      "bpm": 92
+    },
+    {
+      "id": 3,
+      "titulo": "Ella Baila Sola",
+      "artista": "Bad Bunny ft. Eslabon Armado",
+      "album": "Un Verano Sin Ti",
+      "año": 2022,
+      "genero": "Regional Mexicano",
+      "duracion": "2:53",
+      "precio": 1500,
+      "bpm": 180
+    },
+    {
+      "id": 4,
+      "titulo": "La Vida Es Bella",
+      "artista": "Sende",
+      "album": "Historias de la Calle",
+      "año": 2020,
+      "genero": "Reggaeton",
+      "duracion": "3:45",
+      "precio": 1200,
+      "bpm": 94
+    },
+    {
+      "id": 5,
+      "titulo": "Mi Verdad",
+      "artista": "Yeison",
+      "album": "Nuevo Amanecer",
+      "año": 2021,
+      "genero": "Reggaeton",
+      "duracion": "3:30",
+      "precio": 1200,
+      "bpm": 88
+    },
+    {
+      "id": 6,
+      "titulo": "Time",
+      "artista": "Pink Floyd",
+      "album": "The Dark Side of the Moon",
+      "año": 1973,
+      "genero": "Rock Progresivo",
+      "duracion": "7:03",
+      "precio": 2000,
+      "bpm": 120
+    },
+    {
+      "id": 7,
+      "titulo": "Come Together",
+      "artista": "The Beatles",
+      "album": "Abbey Road",
+      "año": 1969,
+      "genero": "Rock",
+      "duracion": "4:19",
+      "precio": 2000,
+      "bpm": 84
+    },
+    {
+      "id": 8,
+      "titulo": "Here Comes the Sun",
+      "artista": "The Beatles",
+      "album": "Abbey Road",
+      "año": 1969,
+      "genero": "Rock",
+      "duracion": "3:06",
+      "precio": 2000,
+      "bpm": 129
+    },
+    {
+      "id": 9,
+      "titulo": "Dreams",
+      "artista": "Fleetwood Mac",
+      "album": "Rumours",
+      "año": 1977,
+      "genero": "Rock",
+      "duracion": "4:28",
+      "precio": 1800,
+      "bpm": 74
+    },
+    {
+      "id": 10,
+      "titulo": "Billie Jean",
+      "artista": "Michael Jackson",
+      "album": "Thriller",
+      "año": 1982,
+      "genero": "Pop",
+      "duracion": "4:54",
+      "precio": 1800,
+      "bpm": 117
+    },
+    {
+      "id": 11,
+      "titulo": "Thriller",
+      "artista": "Michael Jackson",
+      "album": "Thriller",
+      "año": 1982,
+      "genero": "Pop",
+      "duracion": "5:57",
+      "precio": 1800,
+      "bpm": 86
+    },
+    {
+      "id": 12,
+      "titulo": "Beat It",
+      "artista": "Michael Jackson",
+      "album": "Thriller",
+      "año": 1982,
+      "genero": "Pop/Funk",
+      "duracion": "4:18",
+      "precio": 1800,
+      "bpm": 139
+    }
+  ]
+}

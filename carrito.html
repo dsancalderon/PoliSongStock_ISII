@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras - Polisongstock</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .carrito-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .carrito-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .carrito-header h2 {
+            font-size: 2.5em;
+            color: #2d013e;
+            margin-bottom: 10px;
+        }
+
+        .carrito-content {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        /* Tabla de productos */
+        .carrito-items {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .carrito-vacio {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .carrito-vacio-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .carrito-vacio h3 {
+            color: #2d013e;
+            margin-bottom: 15px;
+        }
+
+        .carrito-vacio a {
+            display: inline-block;
+            background: linear-gradient(135deg, #6a00b8, #b26fff);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+
+        .carrito-item {
+            display: grid;
+            grid-template-columns: 80px 1fr 100px 100px 50px;
+            gap: 20px;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            transition: background 0.3s;
+        }
+
+        .carrito-item:hover {
+            background: #f9f9f9;
+        }
+
+        .carrito-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-imagen {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #6a00b8, #b26fff);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2em;
+            flex-shrink: 0;
+        }
+
+        .item-detalles {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .item-titulo {
+            font-weight: 600;
+            color: #2d013e;
+            font-size: 1em;
+        }
+
+        .item-artista {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .item-tipo {
+            display: inline-block;
+            background: #f0e6ff;
+            color: #6a00b8;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            width: fit-content;
+            margin-top: 5px;
+        }
+
+        .item-precio {
+            text-align: right;
+            color: #6a00b8;
+            font-weight: 600;
+        }
+
+        .item-cantidad {
+            display: flex;
+            gap: 5px;
+        }
+
+        .item-cantidad input {
+            width: 50px;
+            padding: 5px;
+            border: 1px solid #b26fff;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .item-cantidad button {
+            background: #b26fff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .item-cantidad button:hover {
+            background: #6a00b8;
+        }
+
+        .btn-eliminar {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: 0.3s;
+        }
+
+        .btn-eliminar:hover {
+            background: #ff4444;
+        }
+
+        /* Resumen lateral */
+        .carrito-resumen {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .resumen-titulo {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2d013e;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .resumen-fila {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            color: #666;
+        }
+
+        .resumen-fila strong {
+            color: #2d013e;
+        }
+
+        .resumen-separador {
+            height: 1px;
+            background: #eee;
+            margin: 15px 0;
+        }
+
+        .resumen-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #6a00b8;
+            margin-bottom: 20px;
+        }
+
+        .codigo-descuento {
+            margin-bottom: 20px;
+        }
+
+        .codigo-descuento label {
+            display: block;
+            font-weight: 600;
+            color: #2d013e;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+        }
+
+        .codigo-descuento input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #b26fff;
+            border-radius: 8px;
+            font-size: 0.9em;
+            box-sizing: border-box;
+        }
+
+        .codigo-descuento button {
+            width: 100%;
+            padding: 8px;
+            background: #b26fff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            margin-top: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .codigo-descuento button:hover {
+            background: #6a00b8;
+        }
+
+        .btn-comprar {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #6a00b8, #b26fff);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 10px;
+        }
+
+        .btn-comprar:hover {
+            background: linear-gradient(135deg, #4d0085, #9a1fe0);
+            transform: translateY(-2px);
+        }
+
+        .btn-continuar {
+            width: 100%;
+            padding: 12px;
+            background: #f0e6ff;
+            color: #6a00b8;
+            border: 2px solid #b26fff;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-continuar:hover {
+            background: #e6d5ff;
+        }
+
+        .btn-vaciar {
+            width: 100%;
+            padding: 10px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+            font-size: 0.9em;
+        }
+
+        .btn-vaciar:hover {
+            background: #ff4444;
+        }
+
+        .descuentos-disponibles {
+            background: #fffbea;
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 0.85em;
+            color: #333;
+        }
+
+        .descuentos-disponibles strong {
+            display: block;
+            margin-bottom: 8px;
+            color: #2d013e;
+        }
+
+        .descuento-codigo {
+            padding: 5px 0;
+            color: #555;
+        }
+
+        .descuento-codigo code {
+            background: #fff;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #6a00b8;
+        }
+
+        @media (max-width: 768px) {
+            .carrito-content {
+                grid-template-columns: 1fr;
+            }
+
+            .carrito-item {
+                grid-template-columns: 60px 1fr 50px;
+                gap: 10px;
+            }
+
+            .item-cantidad,
+            .btn-eliminar {
+                display: none;
+            }
+
+            .carrito-resumen {
+                position: static;
+            }
+
+            .item-imagen {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            padding: 25px;
+            background-color: #2d013e;
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <img src="imagenes/logo.png" alt="Logo" class="logo">
+            <h1 class="titulo">Polisongstock</h1>
+        </div>
+        <nav class="navbar">
+            <a href="index.html" class="nav-link">Inicio</a>
+            <a href="catalogo.html" class="nav-link">MP3</a>
+            <a href="vinilos.html" class="nav-link">Vinilos</a>
+            <a href="recopilaciones.html" class="nav-link">Recopilaciones</a>
+            <a href="carrito.html" class="nav-link carrito-link">
+                🛒 Carrito
+                <span id="carrito-badge" style="display: none;">0</span>
+            </a>
+        </nav>
+        <div class="acciones">
+            <a href="login.html" class="btn btn-login">Iniciar sesión</a>
+            <a href="registro.html" class="btn btn-register">Registrarse</a>
+        </div>
+    </header>
+
+    <div class="carrito-container">
+        <div class="carrito-header">
+            <h2>🛒 Carrito de Compras</h2>
+            <p>Revisa y confirma tu pedido</p>
+        </div>
+
+        <div class="carrito-content">
+            <!-- Lista de productos -->
+            <div class="carrito-items" id="carrito-items">
+                <!-- Se llenará con JavaScript -->
+            </div>
+
+            <!-- Resumen y checkout -->
+            <div class="carrito-resumen">
+                <div class="resumen-titulo">Resumen del Pedido</div>
+
+                <div class="resumen-fila">
+                    <span>Subtotal:</span>
+                    <strong id="resumen-subtotal">$0</strong>
+                </div>
+
+                <div class="resumen-fila">
+                    <span>IVA (19%):</span>
+                    <strong id="resumen-impuesto">$0</strong>
+                </div>
+
+                <div class="resumen-separador"></div>
+
+                <div class="resumen-total">
+                    <span>Total:</span>
+                    <span id="resumen-total">$0</span>
+                </div>
+
+                <div class="codigo-descuento">
+                    <label for="codigo-descuento">Código de descuento:</label>
+                    <input type="text" id="codigo-descuento" placeholder="WELCOME10">
+                    <button onclick="aplicarCodigoDescuento()">Aplicar</button>
+                </div>
+
+                <button class="btn-comprar" onclick="procederCompra()">Proceder al Pago</button>
+                <button class="btn-continuar" onclick="continuarComprando()">Continuar Comprando</button>
+                <button class="btn-vaciar" onclick="Carrito.vaciar()">Vaciar Carrito</button>
+
+                <div class="descuentos-disponibles">
+                    <strong>💝 Códigos de descuento disponibles:</strong>
+                    <div class="descuento-codigo">
+                        <code>WELCOME10</code> - 10% descuento
+                    </div>
+                    <div class="descuento-codigo">
+                        <code>MUSICA20</code> - 20% en música
+                    </div>
+                    <div class="descuento-codigo">
+                        <code>VINILOS15</code> - 15% en vinilos
+                    </div>
+                    <div class="descuento-codigo">
+                        <code>BLACKFRIDAY30</code> - 30% especial
+                    </div>
+                    <div class="descuento-codigo">
+                        <code>POLISONG5</code> - 5% general
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        © 2025 Polisongstock — Carrito de Compras
+    </footer>
+
+    <script src="database.js"></script>
+    <script src="carrito.js"></script>
+    <script>
+        // Función para mostrar los items del carrito
+        function mostrarCarrito() {
+            const container = document.getElementById('carrito-items');
+            const items = Carrito.items;
+
+            if (items.length === 0) {
+                container.innerHTML = `
+                    <div class="carrito-vacio">
+                        <div class="carrito-vacio-icon">🛒</div>
+                        <h3>Tu carrito está vacío</h3>
+                        <p>No hay productos en tu carrito. ¡Explora nuestro catálogo y agrega tus favoritos!</p>
+                        <a href="catalogo.html">Ir al Catálogo de Música</a>
+                        <a href="vinilos.html" style="margin-left: 10px;">Ver Vinilos</a>
+                    </div>
+                `;
+                actualizarResumen();
+                return;
+            }
+
+            container.innerHTML = items.map(item => `
+                <div class="carrito-item">
+                    <div class="item-imagen">
+                        ${item.tipo === 'musica' ? '♫' : '💿'}
+                    </div>
+                    <div class="item-detalles">
+                        <div class="item-titulo">${item.titulo}</div>
+                        <div class="item-artista">🎤 ${item.artista}</div>
+                        <div class="item-tipo">${item.tipo === 'musica' ? 'MP3' : 'VINILO'}</div>
+                    </div>
+                    <div class="item-precio">
+                        ${Carrito.formatearPrecio(item.precio * item.cantidad)}
+                    </div>
+                    <div class="item-cantidad">
+                        <button onclick="Carrito.actualizarCantidad(${item.id}, '${item.tipo}', ${item.cantidad - 1})">−</button>
+                        <input type="number" value="${item.cantidad}" 
+                            onchange="Carrito.actualizarCantidad(${item.id}, '${item.tipo}', parseInt(this.value))" 
+                            min="1">
+                        <button onclick="Carrito.actualizarCantidad(${item.id}, '${item.tipo}', ${item.cantidad + 1})">+</button>
+                    </div>
+                    <button class="btn-eliminar" onclick="Carrito.eliminar(${item.id}, '${item.tipo}')">Eliminar</button>
+                </div>
+            `).join('');
+
+            actualizarResumen();
+        }
+
+        // Actualizar resumen de precios
+        function actualizarResumen() {
+            const subtotal = Carrito.obtenerPrecioTotal();
+            const impuesto = Carrito.obtenerImpuesto();
+            const total = Carrito.obtenerTotalConImpuesto();
+
+            document.getElementById('resumen-subtotal').textContent = Carrito.formatearPrecio(subtotal);
+            document.getElementById('resumen-impuesto').textContent = Carrito.formatearPrecio(impuesto);
+            document.getElementById('resumen-total').textContent = Carrito.formatearPrecio(total);
+        }
+
+        // Aplicar código de descuento
+        function aplicarCodigoDescuento() {
+            const codigo = document.getElementById('codigo-descuento').value;
+            const descuento = Carrito.aplicarDescuento(codigo);
+
+            if (descuento > 0) {
+                const subtotal = Carrito.obtenerPrecioTotal();
+                const descuentoAplicado = Math.round(subtotal * descuento);
+                const nuevoSubtotal = subtotal - descuentoAplicado;
+                const impuesto = Math.round(nuevoSubtotal * 0.19);
+                const total = nuevoSubtotal + impuesto;
+
+                Carrito.mostrarNotificacion(`✓ Descuento de ${(descuento * 100).toFixed(0)}% aplicado (${Carrito.formatearPrecio(descuentoAplicado)})`);
+                
+                document.getElementById('resumen-subtotal').textContent = Carrito.formatearPrecio(nuevoSubtotal);
+                document.getElementById('resumen-impuesto').textContent = Carrito.formatearPrecio(impuesto);
+                document.getElementById('resumen-total').textContent = Carrito.formatearPrecio(total);
+            } else {
+                Carrito.mostrarNotificacion('✗ Código de descuento inválido');
+            }
+        }
+
+        // Proceder al pago
+        function procederCompra() {
+            if (!Carrito.tieneProductos()) {
+                alert('El carrito está vacío');
+                return;
+            }
+
+            const total = Carrito.obtenerTotalConImpuesto();
+            alert(`¡Gracias por tu compra!\n\nTotal a pagar: ${Carrito.formatearPrecio(total)}\n\nPor favor, inicia sesión para completar el pago.`);
+            // Redirigir a login
+            window.location.href = 'login.html';
+        }
+
+        // Continuar comprando
+        function continuarComprando() {
+            window.location.href = 'catalogo.html';
+        }
+
+        // Inicializar al cargar la página
+        setTimeout(() => {
+            mostrarCarrito();
+        }, 500);
+
+        // Actualizar carrito si se detectan cambios
+        window.addEventListener('storage', () => {
+            Carrito.init();
+            mostrarCarrito();
+        });
+    </script>
+</body>
+</html>

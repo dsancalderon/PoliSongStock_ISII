@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión - Polisongstock</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #6a00b8 0%, #b26fff 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            padding: 20px;
+        }
+
+        .auth-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            max-width: 450px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .auth-header {
+            background: linear-gradient(135deg, #6a00b8, #b26fff);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .auth-header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .auth-header p {
+            font-size: 0.95em;
+            opacity: 0.9;
+        }
+
+        .auth-content {
+            padding: 40px 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2d013e;
+            font-size: 0.95em;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #6a00b8;
+            box-shadow: 0 0 0 3px rgba(106, 0, 184, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #999;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+
+        .checkbox-group input {
+            width: auto;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .checkbox-group a {
+            color: #6a00b8;
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: auto;
+        }
+
+        .checkbox-group a:hover {
+            text-decoration: underline;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #6a00b8, #b26fff);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 15px;
+        }
+
+        .btn-login:hover {
+            background: linear-gradient(135deg, #4d0085, #9a1fe0);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(106, 0, 184, 0.3);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 25px 0;
+            color: #999;
+            font-size: 0.95em;
+        }
+
+        .divider::before {
+            content: '';
+            display: inline-block;
+            width: 40%;
+            height: 1px;
+            background: #e0e0e0;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        .divider::after {
+            content: '';
+            display: inline-block;
+            width: 40%;
+            height: 1px;
+            background: #e0e0e0;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+
+        .auth-footer {
+            text-align: center;
+            font-size: 0.95em;
+            color: #666;
+        }
+
+        .auth-footer a {
+            color: #6a00b8;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            border-left: 4px solid #c62828;
+        }
+
+        .success-message {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            border-left: 4px solid #2e7d32;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 30px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: #999;
+            font-size: 1em;
+            transition: 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn.active {
+            color: #6a00b8;
+            border-bottom-color: #6a00b8;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .password-strength {
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            width: 0;
+            transition: width 0.3s, background-color 0.3s;
+        }
+
+        .dashboard {
+            display: none;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .user-header {
+            background: linear-gradient(135deg, #6a00b8, #b26fff);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            margin: 0 auto 15px;
+        }
+
+        .dashboard-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .dashboard-section h3 {
+            color: #2d013e;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .purchase-item {
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .purchase-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .purchase-info {
+            text-align: left;
+        }
+
+        .purchase-title {
+            font-weight: 600;
+            color: #2d013e;
+            margin-bottom: 5px;
+        }
+
+        .purchase-date {
+            font-size: 0.85em;
+            color: #999;
+        }
+
+        .purchase-price {
+            color: #6a00b8;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .btn-logout {
+            width: 100%;
+            padding: 12px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-logout:hover {
+            background: #ff4444;
+        }
+
+        .social-login {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .social-btn:hover {
+            border-color: #6a00b8;
+            color: #6a00b8;
+        }
+
+        @media (max-width: 600px) {
+            .auth-content {
+                padding: 30px 20px;
+            }
+
+            .auth-header h1 {
+                font-size: 1.5em;
+            }
+
+            .purchase-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .purchase-price {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <!-- SECCIÓN DE AUTENTICACIÓN -->
+        <div id="auth-section">
+            <div class="auth-header">
+                <h1>🎵 Polisongstock</h1>
+                <p>Tu tienda de música online</p>
+            </div>
+
+            <div class="auth-content">
+                <!-- Pestañas de Login/Registro -->
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="cambiarTab('login')">Iniciar Sesión</button>
+                    <button class="tab-btn" onclick="cambiarTab('registro')">Registrarse</button>
+                </div>
+
+                <!-- TAB: LOGIN -->
+                <div id="login" class="tab-content active">
+                    <div class="error-message" id="error-login"></div>
+                    <div class="success-message" id="success-login"></div>
+
+                    <div class="form-group">
+                        <label for="login-email">Correo electrónico</label>
+                        <input type="email" id="login-email" placeholder="tu@email.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login-password">Contraseña</label>
+                        <input type="password" id="login-password" placeholder="Tu contraseña">
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="remember" checked>
+                        <label for="remember" style="margin-bottom: 0;">Recuérdame</label>
+                        <a href="javascript:void(0)" onclick="mostrarRecuperacion()">¿Olvidaste tu contraseña?</a>
+                    </div>
+
+                    <button class="btn-login" onclick="iniciarSesion()">Entrar</button>
+
+                    <div class="divider">o continúa con</div>
+
+                    <div class="social-login">
+                        <button class="social-btn" onclick="loginSocial('google')">📱 Google</button>
+                        <button class="social-btn" onclick="loginSocial('facebook')">f Facebook</button>
+                    </div>
+                </div>
+
+                <!-- TAB: REGISTRO -->
+                <div id="registro" class="tab-content">
+                    <div class="error-message" id="error-registro" style="display: block; background: #fff3cd; color: #856404; border-left-color: #ffc107;">
+                        🔒 <strong>Registro Deshabilitado</strong><br>
+                        <small>Solo el administrador (admin@admin.com) puede acceder al sistema.</small><br><br>
+                        <strong>Credenciales:</strong><br>
+                        Email: <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 3px;">admin@admin.com</code><br>
+                        Contraseña: <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 3px;">admin</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE DASHBOARD (después de iniciar sesión) -->
+        <div id="dashboard" class="dashboard">
+            <div class="user-header">
+                <div class="user-avatar">👤</div>
+                <h2 id="user-name">Bienvenido</h2>
+                <p id="user-email">usuario@email.com</p>
+            </div>
+
+            <div style="padding: 0 20px;">
+                <!-- Compras Recientes -->
+                <div class="dashboard-section">
+                    <h3>🛒 Tus Compras Recientes</h3>
+                    <div id="purchases-list">
+                    <div class="purchase-item">
+                        <div class="purchase-info">
+                            <div class="purchase-title">Thriller - Michael Jackson</div>
+                            <div class="purchase-date">Comprado hace 2 días</div>
+                        </div>
+                        <div class="purchase-price">$60.000</div>
+                    </div>
+                    <div class="purchase-item">
+                        <div class="purchase-title">Abbey Road - The Beatles</div>
+                        <div class="purchase-date">Comprado hace 5 días</div>
+                        </div>
+                        <div class="purchase-price">$70.000</div>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- Perfil -->
+                <div class="dashboard-section">
+                    <h3>👤 Mi Perfil</h3>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="profile-email" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="tel" id="profile-phone" placeholder="Tu teléfono">
+                    </div>
+                    <div class="form-group">
+                        <label>Ciudad</label>
+                        <input type="text" id="profile-city" placeholder="Tu ciudad">
+                    </div>
+                </div>
+
+                <!-- Seguridad -->
+                <div class="dashboard-section">
+                    <h3>🔒 Seguridad</h3>
+                    <button style="width: 100%; padding: 10px; background: #6a00b8; color: white; border: none; border-radius: 8px; cursor: pointer; margin-bottom: 10px;" onclick="cambiarContraseña()">
+                        Cambiar Contraseña
+                    </button>
+                    <button style="width: 100%; padding: 10px; background: #6a00b8; color: white; border: none; border-radius: 8px; cursor: pointer;" onclick="activarAutenticacion2FA()">
+                        Activar Autenticación 2FA
+                    </button>
+                </div>
+
+                <!-- Cerrar Sesión -->
+                <button class="btn-logout" onclick="cerrarSesion()">Cerrar Sesión</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="carrito.js"></script>
+    <script src="auth-log.js"></script>
+    <script>
+        // Base de datos de usuarios predefinidos
+        const DATABASE_USUARIOS = {
+            'admin@admin.com': {
+                id: 1,
+                email: 'admin@admin.com',
+                password: 'admin',
+                nombre: 'Administrador',
+                rol: 'admin',
+                fechaRegistro: '2025-01-01T00:00:00.000Z',
+                compras: [
+                    {
+                        id: 1,
+                        titulo: 'Thriller - Michael Jackson',
+                        precio: 60000,
+                        fecha: '2025-11-23',
+                        estado: 'Entregado'
+                    },
+                    {
+                        id: 2,
+                        titulo: 'Abbey Road - The Beatles',
+                        precio: 70000,
+                        fecha: '2025-11-20',
+                        estado: 'Entregado'
+                    }
+                ]
+            }
+        };
+
+        // Sistema de usuarios mejorado
+        const Users = {
+            // Inicializar base de datos en localStorage si no existe
+            inicializar() {
+                if (!localStorage.getItem('polisongstock_usuarios')) {
+                    localStorage.setItem('polisongstock_usuarios', JSON.stringify(DATABASE_USUARIOS));
+                }
+            },
+
+            // Registrarse - DESHABILITADO (solo admin existe)
+            registrar(email, password, nombre) {
+                return { 
+                    success: false, 
+                    message: 'El registro está cerrado. Solo el administrador puede acceder.' 
+                };
+            },
+
+            // Buscar usuario por email y contraseña
+            buscar(email, password) {
+                let usuarios = JSON.parse(localStorage.getItem('polisongstock_usuarios') || '{}');
+                const usuario = usuarios[email];
+                
+                if (usuario && usuario.password === password) {
+                    return usuario;
+                }
+                return null;
+            },
+
+            // Obtener usuario por email
+            obtenerPorEmail(email) {
+                let usuarios = JSON.parse(localStorage.getItem('polisongstock_usuarios') || '{}');
+                return usuarios[email];
+            },
+
+            // Obtener todos los usuarios (solo para admin)
+            obtenerTodos() {
+                let usuarios = JSON.parse(localStorage.getItem('polisongstock_usuarios') || '{}');
+                return Object.values(usuarios);
+            },
+
+            // Actualizar usuario
+            actualizar(email, datos) {
+                let usuarios = JSON.parse(localStorage.getItem('polisongstock_usuarios') || '{}');
+                if (usuarios[email]) {
+                    usuarios[email] = { ...usuarios[email], ...datos };
+                    localStorage.setItem('polisongstock_usuarios', JSON.stringify(usuarios));
+                    return true;
+                }
+                return false;
+            }
+        };
+
+        // Control de pestañas
+        function cambiarTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(tab).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Validación de Email
+        function validarEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        // Validación de Contraseña
+        function validarContraseña(pass) {
+            return pass.length >= 6;
+        }
+
+        // Mostrar Fortaleza de Contraseña
+        document.getElementById('register-password')?.addEventListener('input', function() {
+            const pass = this.value;
+            const bar = document.getElementById('strength-bar');
+            let strength = 0;
+
+            if (pass.length >= 6) strength += 25;
+            if (pass.length >= 10) strength += 25;
+            if (/[A-Z]/.test(pass)) strength += 25;
+            if (/[0-9]/.test(pass)) strength += 25;
+
+            bar.style.width = strength + '%';
+            bar.style.backgroundColor = strength < 50 ? '#ff6b6b' : strength < 75 ? '#ffc107' : '#4caf50';
+        });
+
+        // Iniciar Sesión
+        function iniciarSesion() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const errorMsg = document.getElementById('error-login');
+            const successMsg = document.getElementById('success-login');
+
+            errorMsg.style.display = 'none';
+            successMsg.style.display = 'none';
+
+            // Validar campos vacíos
+            if (!email || !password) {
+                errorMsg.textContent = '⚠️ Por favor completa todos los campos';
+                errorMsg.style.display = 'block';
+                AUTH_LOG.registrarIntento(email || 'desconocido', false, 'Campos vacíos');
+                return;
+            }
+
+            // Validar formato de email
+            if (!validarEmail(email)) {
+                errorMsg.textContent = '⚠️ Email inválido';
+                errorMsg.style.display = 'block';
+                AUTH_LOG.registrarIntento(email, false, 'Email inválido');
+                return;
+            }
+
+            // Detectar acceso no autorizado
+            if (AUTH_LOG.detectarAccesoNoAutorizado(email)) {
+                errorMsg.innerHTML = '🚫 <strong>Acceso bloqueado temporalmente</strong><br>Demasiados intentos fallidos. Intenta más tarde.';
+                errorMsg.style.display = 'block';
+                AUTH_LOG.registrarIntento(email, false, 'Cuenta bloqueada por intentos fallidos');
+                return;
+            }
+
+            // Buscar usuario
+            const usuario = Users.buscar(email, password);
+            if (usuario) {
+                // Inicio de sesión exitoso
+                localStorage.setItem('polisongstock_usuario_actual', JSON.stringify(usuario));
+                successMsg.textContent = '✓ Bienvenido ' + usuario.nombre + '!';
+                successMsg.style.display = 'block';
+                AUTH_LOG.registrarIntento(email, true, 'Inicio de sesión exitoso');
+                
+                setTimeout(() => {
+                    mostrarDashboard(usuario);
+                }, 1500);
+            } else {
+                // Inicio de sesión fallido
+                errorMsg.textContent = '⚠️ Email o contraseña incorrectos';
+                errorMsg.style.display = 'block';
+                AUTH_LOG.registrarIntento(email, false, 'Email o contraseña incorrectos');
+            }
+        }
+
+        // Registrarse
+        function registrarse() {
+            const nombre = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirm = document.getElementById('register-confirm').value;
+            const terms = document.getElementById('terms').checked;
+            const errorMsg = document.getElementById('error-registro');
+            const successMsg = document.getElementById('success-registro');
+
+            errorMsg.style.display = 'none';
+            successMsg.style.display = 'none';
+
+            // El registro está cerrado
+            errorMsg.innerHTML = '⚠️ <strong>El registro está deshabilitado.</strong><br>Solo el administrador (admin@admin.com) puede acceder al sistema.';
+            errorMsg.style.display = 'block';
+            return;
+        }
+
+        // Mostrar Dashboard
+        function mostrarDashboard(usuario) {
+            document.getElementById('auth-section').style.display = 'none';
+            document.getElementById('dashboard').classList.add('active');
+            
+            document.getElementById('user-name').textContent = '¡Hola, ' + usuario.nombre + '!';
+            document.getElementById('user-email').textContent = usuario.email;
+            document.getElementById('profile-email').value = usuario.email;
+        }
+
+        // Cerrar Sesión
+        function cerrarSesion() {
+            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+                localStorage.removeItem('polisongstock_usuario_actual');
+                location.reload();
+            }
+        }
+
+        // Funciones adicionales
+        function mostrarRecuperacion() {
+            alert('Se enviará un enlace de recuperación a tu email');
+        }
+
+        function cambiarContraseña() {
+            alert('Se abrirá una ventana para cambiar tu contraseña');
+        }
+
+        function activarAutenticacion2FA() {
+            alert('Autenticación de dos factores activada');
+        }
+
+        function loginSocial(proveedor) {
+            alert('Login con ' + proveedor + ' en desarrollo');
+        }
+
+        // Verificar si hay usuario activo al cargar la página
+        window.addEventListener('load', () => {
+            // Inicializar base de datos
+            Users.inicializar();
+            
+            const usuarioActual = localStorage.getItem('polisongstock_usuario_actual');
+            if (usuarioActual) {
+                mostrarDashboard(JSON.parse(usuarioActual));
+            }
+        });
+    </script>
+</body>
+</html>
+
