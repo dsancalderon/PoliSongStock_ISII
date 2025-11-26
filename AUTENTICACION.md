@@ -275,3 +275,6 @@ Después de iniciar sesión, el usuario admin puede acceder a:
 ---
 
 **Última actualización**: 25 de noviembre de 2025
+
+
+//fin del codigo
